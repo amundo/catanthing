@@ -1,0 +1,102 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Catan</title>
+<style>
+body {
+  font-size: 60vh;
+  text-align:center;
+  height: 100vh;
+  width: 100vw;
+  font-family:Impact;
+  background-image: radial-gradient(red,orange,yellow,green,blue, purple);
+}
+
+::-moz-selection { background: transparent; }
+
+small {
+  font-size: 3vh;
+  display:block;
+  color:gray;
+  font-family:Helvetica;
+}
+
+.fade {
+   opacity: 1;
+   transition: opacity .25s ease-in-out;
+   -moz-transition: opacity .25s ease-in-out;
+   -webkit-transition: opacity .25s ease-in-out;
+}
+
+</style>
+</head>
+<body>
+  
+<script>
+
+/*
+⚀ U+2680 DIE FACE-1
+⚁ U+2681 DIE FACE-2
+⚂ U+2682 DIE FACE-3
+⚃ U+2683 DIE FACE-4
+⚄ U+2684 DIE FACE-5
+⚅ U+2685 DIE FACE-6
+*/
+
+var init = () => {
+  var 
+    d = [1,2,3,4,5,6],
+    rolls = [];
+  
+  d.forEach(i => {
+   d.forEach(j => {
+     rolls.push(i+j)
+   } )
+  })
+
+  rolls.push(0);
+
+  var shuffle = array => {
+    var currentIndex = array.length, temporaryValue, randomIndex ;
+  
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+  
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+  
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+  
+    return array;
+  }
+             
+  window.rolls = shuffle(rolls);
+}
+
+var render = n => {
+console.log('render');
+  document.body.innerHTML = `${n} <small>${new Date().toString()}</small>`;
+}
+
+document.body.addEventListener('click', ev => {
+  var r = rolls.pop();
+  if(r === 0){ 
+     init() 
+  } else { 
+    render(r);
+  };
+})
+
+init();
+          
+</script>
+
+</body>
+</html>
